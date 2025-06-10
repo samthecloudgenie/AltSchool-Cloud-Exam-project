@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Future of RetailGo | Onah Samuel - Cloud Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        --dark-surface: #0f0f23;
+        --dark-surface-elevated: #16213e;
+        --dark-border: rgba(139, 92, 246, 0.1);
+      }
+
+      * {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+
+      .font-mono {
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      body {
+        background: var(--dark-surface);
+        color: #e2e8f0;
+        overflow-x: hidden;
+      }
+
+      .premium-card {
+        background: linear-gradient(
+          145deg,
+          rgba(22, 33, 62, 0.8) 0%,
+          rgba(15, 15, 35, 0.9) 100%
+        );
+        border: 1px solid var(--dark-border);
+        border-radius: 20px;
+        backdrop-filter: blur(20px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .premium-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--primary-gradient);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: -1;
+      }
+
+      .premium-card:hover {
+        transform: translateY(-12px) scale(1.02);
+        border-color: rgba(102, 126, 234, 0.4);
+        box-shadow: 0 25px 50px rgba(102, 126, 234, 0.15),
+          0 0 0 1px rgba(102, 126, 234, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      .premium-card:hover::before {
+        opacity: 0.03;
+      }
+
+      .hero-section {
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(102, 126, 234, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(118, 75, 162, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(74, 172, 254, 0.1) 0%,
+            transparent 50%
+          ),
+          linear-gradient(135deg, var(--dark-surface) 0%, #1a1a3a 100%);
+        min-height: 100vh;
+        position: relative;
+      }
+
+      .text-premium-gradient {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .text-accent-gradient {
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .text-success-gradient {
+        background: var(--success-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .btn-primary {
+        background: var(--primary-gradient);
+        border: none;
+        border-radius: 12px;
+        padding: 16px 32px;
+        font-weight: 600;
+        color: white;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn-primary:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-secondary {
+        background: rgba(15, 15, 35, 0.8);
+        border: 2px solid rgba(102, 126, 234, 0.3);
+        border-radius: 12px;
+        padding: 14px 30px;
+        font-weight: 600;
+        color: #e2e8f0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(102, 126, 234, 0.1);
+        border-color: rgba(102, 126, 234, 0.6);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+      }
+
+      .tech-icon-premium {
+        width: 70px;
+        height: 70px;
+        background: var(--primary-gradient);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 28px;
+        margin-bottom: 20px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tech-icon-premium::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .tech-icon-premium:hover {
+        transform: scale(1.15) rotate(10deg);
+        box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+      }
+
+      .tech-icon-premium:hover::before {
+        opacity: 1;
+      }
+
+      .metric-display {
+        font-size: 3.5rem;
+        font-weight: 900;
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      .section-divider {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(102, 126, 234, 0.5),
+          transparent
+        );
+        margin: 80px 0;
+      }
+
+      .floating-orb {
+        position: absolute;
+        border-radius: 50%;
+        background: var(--primary-gradient);
+        opacity: 0.1;
+        animation: float 6s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      .floating-orb:nth-child(2) {
+        animation-delay: -2s;
+      }
+      .floating-orb:nth-child(3) {
+        animation-delay: -4s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        33% {
+          transform: translateY(-20px) rotate(120deg);
+        }
+        66% {
+          transform: translateY(-10px) rotate(240deg);
+        }
+      }
+
+      .slide-in-up {
+        animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      @keyframes slideInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .stagger-1 {
+        animation-delay: 0.1s;
+      }
+      .stagger-2 {
+        animation-delay: 0.2s;
+      }
+      .stagger-3 {
+        animation-delay: 0.3s;
+      }
+      .stagger-4 {
+        animation-delay: 0.4s;
+      }
+
+      .nav-blur {
+        backdrop-filter: blur(20px);
+        background: rgba(15, 15, 35, 0.8);
+        border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+      }
+
+      .phase-card {
+        background: linear-gradient(
+          145deg,
+          rgba(22, 33, 62, 0.6) 0%,
+          rgba(15, 15, 35, 0.8) 100%
+        );
+        border: 1px solid var(--dark-border);
+        border-radius: 24px;
+        padding: 32px;
+        position: relative;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .phase-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        border-radius: 24px 24px 0 0;
+        transition: all 0.3s ease;
+      }
+
+      .phase-card:nth-child(1)::before {
+        background: var(--primary-gradient);
+      }
+      .phase-card:nth-child(2)::before {
+        background: var(--secondary-gradient);
+      }
+      .phase-card:nth-child(3)::before {
+        background: var(--accent-gradient);
+      }
+      .phase-card:nth-child(4)::before {
+        background: var(--success-gradient);
+      }
+
+      .phase-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .skill-tag {
+        background: rgba(102, 126, 234, 0.1);
+        border: 1px solid rgba(102, 126, 234, 0.2);
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #a5b4fc;
+        transition: all 0.3s ease;
+      }
+
+      .skill-tag:hover {
+        background: rgba(102, 126, 234, 0.2);
+        border-color: rgba(102, 126, 234, 0.4);
+        color: #c7d2fe;
+        transform: translateY(-2px);
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 80px;
+      }
+
+      .section-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 24px;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .section-subtitle {
+        font-size: 1.25rem;
+        color: #94a3b8;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 768px) {
+        .section-title {
+          font-size: 2.5rem;
+        }
+
+        .metric-display {
+          font-size: 2.5rem;
+        }
+
+        .tech-icon-premium {
+          width: 60px;
+          height: 60px;
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating Orbs -->
+    <div
+      class="floating-orb"
+      style="top: 10%; left: 10%; width: 300px; height: 300px"
+    ></div>
+    <div
+      class="floating-orb"
+      style="top: 60%; right: 10%; width: 200px; height: 200px"
+    ></div>
+    <div
+      class="floating-orb"
+      style="bottom: 20%; left: 20%; width: 150px; height: 150px"
+    ></div>
+
+    <!-- Navigation -->
+    <nav
+      class="fixed top-0 w-full z-50 transition-all duration-300"
+      id="navbar"
+    >
+      <div class="max-w-7xl mx-auto px-6 py-6">
+        <div class="flex justify-between items-center">
+          <div class="text-2xl font-bold">
+            <span class="text-premium-gradient">Retail</span
+            ><span class="text-white">Go</span>
+          </div>
+          <div class="hidden md:flex space-x-10">
+            <a
+              href="#project"
+              class="text-slate-300 hover:text-white transition-colors duration-300 font-medium"
+              >Project</a
+            >
+            <a
+              href="#innovation"
+              class="text-slate-300 hover:text-white transition-colors duration-300 font-medium"
+              >Innovation</a
+            >
+            <a
+              href="#about"
+              class="text-slate-300 hover:text-white transition-colors duration-300 font-medium"
+              >About</a
+            >
+            <a
+              href="#contact"
+              class="text-slate-300 hover:text-white transition-colors duration-300 font-medium"
+              >Contact</a
+            >
+          </div>
+          <div class="md:hidden">
+            <button class="text-white" id="mobile-menu-button">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section flex items-center justify-center relative">
+      <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
+        <div class="slide-in-up">
+          <div
+            class="inline-block bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-full px-6 py-3 mb-8 border border-purple-500/20"
+          >
+            <span class="text-sm font-medium text-premium-gradient"
+              >🚀 Revolutionizing Nigerian Retail</span
+            >
+          </div>
+
+          <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight">
+            The Future of <br />
+            <span class="text-premium-gradient">RetailGo</span>
+          </h1>
+
+          <p
+            class="text-xl md:text-2xl text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed"
+          >
+            Transforming Nigeria's ₦2.065 trillion retail landscape with
+            AI-powered self-checkout solutions.
+            <span class="text-accent-gradient font-semibold"
+              >Zero queues. Instant payments. Seamless experiences.</span
+            >
+          </p>
+
+          <div
+            class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
+          >
+            <button class="btn-primary text-lg px-8 py-4">
+              Explore the Innovation
+            </button>
+            <button class="btn-secondary text-lg px-8 py-4">
+              Technical Deep Dive
+            </button>
+          </div>
+
+          <div
+            class="bg-gradient-to-r from-slate-800/50 to-slate-700/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-600/30"
+          >
+            <p class="text-slate-300 mb-2">Architected by</p>
+            <p class="text-2xl font-bold text-white">Onah Samuel</p>
+            <p class="text-accent-gradient font-semibold">
+              Cloud Engineer
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Metrics -->
+    <section id="project" class="py-32 relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="section-header slide-in-up">
+          <h2 class="section-title">Project Impact</h2>
+          <p class="section-subtitle">
+            Built to scale across Nigeria's largest cities, targeting massive
+            market transformation with precision-engineered cloud
+            infrastructure.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-20">
+          <div class="premium-card p-10 text-center slide-in-up stagger-1">
+            <div class="metric-display" id="users">0</div>
+            <p class="text-xl font-semibold text-white mt-4 mb-2">
+              Active Users Year 1
+            </p>
+            <p class="text-slate-400">
+              Across Lagos, Abuja, Port Harcourt, Kano & Ibadan
+            </p>
+            <div class="mt-6 flex justify-center space-x-2">
+              <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-purple-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-cyan-500 rounded-full"></div>
+            </div>
+          </div>
+
+          <div class="premium-card p-10 text-center slide-in-up stagger-2">
+            <div class="metric-display" id="transactions">₦0</div>
+            <p class="text-xl font-semibold text-white mt-4 mb-2">
+              Monthly Volume
+            </p>
+            <p class="text-slate-400">
+              Processing through 150+ retail locations
+            </p>
+            <div class="mt-6 h-2 bg-slate-700 rounded-full overflow-hidden">
+              <div
+                class="h-full bg-gradient-to-r from-green-400 to-blue-500 rounded-full"
+                style="width: 0%"
+                id="volume-progress"
+              ></div>
+            </div>
+          </div>
+
+          <div class="premium-card p-10 text-center slide-in-up stagger-3">
+            <div class="metric-display" id="reduction">0%</div>
+            <p class="text-xl font-semibold text-white mt-4 mb-2">
+              Checkout Time Reduction
+            </p>
+            <p class="text-slate-400">
+              Eliminating queues with mobile scanning
+            </p>
+            <div class="mt-6">
+              <div class="flex justify-between text-sm text-slate-400 mb-2">
+                <span>Traditional</span>
+                <span>RetailGo</span>
+              </div>
+              <div class="flex space-x-2">
+                <div class="flex-1 h-3 bg-red-500 rounded"></div>
+                <div class="w-3 h-3 bg-green-500 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+      </div>
+    </section>
+
+    <!-- Innovation Features -->
+    <section id="innovation" class="py-32 relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="section-header slide-in-up">
+          <h2 class="section-title">Technical Excellence</h2>
+          <p class="section-subtitle">
+            Enterprise-grade cloud architecture designed for Nigeria's unique
+            retail challenges and infrastructure requirements.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+          <div class="premium-card p-8 text-center slide-in-up stagger-1">
+            <div class="tech-icon-premium mx-auto">
+              <span>📱</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-white">
+              Mobile-First Architecture
+            </h3>
+            <p class="text-slate-400 leading-relaxed">
+              Advanced barcode scanning, AI-powered image recognition, and
+              robust offline capabilities for seamless operation.
+            </p>
+            <div class="mt-6 space-y-2">
+              <div class="skill-tag">Computer Vision</div>
+              <div class="skill-tag">Offline Sync</div>
+            </div>
+          </div>
+
+          <div class="premium-card p-8 text-center slide-in-up stagger-2">
+            <div class="tech-icon-premium mx-auto">
+              <span>☁️</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-white">
+              Cloud Infrastructure
+            </h3>
+            <p class="text-slate-400 leading-relaxed">
+              Nigerian data center hosting with 99.5% uptime SLA, auto-scaling,
+              and comprehensive disaster recovery.
+            </p>
+            <div class="mt-6 space-y-2">
+              <div class="skill-tag">AWS EC2</div>
+              <div class="skill-tag">Load Balancing</div>
+            </div>
+          </div>
+
+          <div class="premium-card p-8 text-center slide-in-up stagger-3">
+            <div class="tech-icon-premium mx-auto">
+              <span>🔐</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-white">
+              Security & Compliance
+            </h3>
+            <p class="text-slate-400 leading-relaxed">
+              CBN PSSP licensed, PCI DSS certified with BVN integration and full
+              NDPR compliance for data protection.
+            </p>
+            <div class="mt-6 space-y-2">
+              <div class="skill-tag">End-to-End Encryption</div>
+              <div class="skill-tag">Fraud Detection</div>
+            </div>
+          </div>
+
+          <div class="premium-card p-8 text-center slide-in-up stagger-4">
+            <div class="tech-icon-premium mx-auto">
+              <span>💳</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-white">Payment Ecosystem</h3>
+            <p class="text-slate-400 leading-relaxed">
+              Multi-gateway integration with Paystack, Flutterwave, USSD
+              services, and comprehensive digital wallet support.
+            </p>
+            <div class="mt-6 space-y-2">
+              <div class="skill-tag">API Integration</div>
+              <div class="skill-tag">USSD Gateway</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Showcase -->
+        <div class="premium-card p-12 slide-in-up">
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 class="text-3xl font-bold mb-6 text-premium-gradient">
+                Technical Architecture
+              </h3>
+              <div class="space-y-6">
+                <div class="flex items-start space-x-4">
+                  <div
+                    class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-sm"
+                  >
+                    1
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white mb-2">
+                      Backend Infrastructure
+                    </h4>
+                    <p class="text-slate-400">
+                      PostgreSQL primary database, Redis caching, Elasticsearch
+                      for search, MongoDB for analytics
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                  <div
+                    class="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center text-white font-bold text-sm"
+                  >
+                    2
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white mb-2">
+                      API Architecture
+                    </h4>
+                    <p class="text-slate-400">
+                      RESTful design with OAuth 2.0, rate limiting, JSON
+                      responses, and comprehensive versioning
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                  <div
+                    class="w-8 h-8 bg-cyan-500 rounded-lg flex items-center justify-center text-white font-bold text-sm"
+                  >
+                    3
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white mb-2">
+                      Monitoring & Analytics
+                    </h4>
+                    <p class="text-slate-400">
+                      24/7 system monitoring, performance tracking, error
+                      logging, and real-time usage analytics
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-slate-800/50 rounded-2xl p-8 font-mono text-sm">
+              <div class="text-green-400 mb-4"># System Specifications</div>
+              <div class="space-y-2 text-slate-300">
+                <div>
+                  <span class="text-blue-400">uptime_guarantee:</span> 99.5%
+                </div>
+                <div>
+                  <span class="text-blue-400">api_response_time:</span>
+                  &lt;500ms
+                </div>
+                <div><span class="text-blue-400">scan_accuracy:</span> 98%</div>
+                <div>
+                  <span class="text-blue-400">transaction_speed:</span> &lt;3s
+                </div>
+                <div>
+                  <span class="text-blue-400">fraud_rate:</span> &lt;0.1%
+                </div>
+                <div>
+                  <span class="text-blue-400">data_center:</span> Nigerian
+                  hosting
+                </div>
+                <div>
+                  <span class="text-blue-400">scaling:</span> Auto-scaling
+                  enabled
+                </div>
+                <div>
+                  <span class="text-blue-400">backup:</span> Multi-region
+                  replication
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="section-header slide-in-up">
+          <h2 class="section-title">About Me</h2>
+          <p class="section-subtitle">
+            Cloud engineer with expertise in creating scalable, secure, and
+            innovative solutions for enterprise applications. 
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+          <div class="slide-in-up stagger-1">
+            <div class="premium-card p-12">
+              <div class="mb-8">
+                <h3 class="text-4xl font-bold mb-2 text-premium-gradient">
+                  Onah Samuel
+                </h3>
+                <p class="text-xl text-accent-gradient font-semibold mb-6">
+                  Cloud Engineer
+                </p>
+                <p class="text-lg text-slate-300 leading-relaxed">
+                  Specialized in designing and implementing enterprise-grade
+                  cloud infrastructure with a focus on high-availability
+                  systems, security compliance, and scalable architectures for
+                  mission-critical applications.
+                </p>
+              </div>
+
+              <div class="space-y-8">
+                <div>
+                  <h4
+                    class="text-xl font-bold text-white mb-4 flex items-center"
+                  >
+                    <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                    Education & Certification
+                  </h4>
+                  <div class="space-y-3 ml-5">
+                    <div class="flex justify-between items-center">
+                      <span class="text-slate-300"
+                        >Bachelor of Science, Petroleum Engineering</span
+                      >
+                      <span class="text-slate-500 text-sm"
+                        >University Graduate</span
+                      >
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-slate-300"
+                        >Diploma in Cloud Engineering</span
+                      >
+                      <span class="text-slate-500 text-sm"
+                        >Certified Professional</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4
+                    class="text-xl font-bold text-white mb-4 flex items-center"
+                  >
+                    <span
+                      class="w-2 h-2 bg-purple-500 rounded-full mr-3"
+                    ></span>
+                    Recent Project Highlight
+                  </h4>
+                  <div class="bg-slate-800/50 rounded-xl p-6 ml-5">
+                    Deployed a website on AWS utilizing EC2, VPC, Subnets, Route
+                    tables and Internet Gateway to provision a secure and
+                    scalable environment
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="slide-in-up stagger-2">
+  <div class="premium-card p-12">
+    <div class="mb-8">
+      <h3 class="text-4xl font-bold mb-2 text-premium-gradient">DevOps Toolkit</h3>
+      <p class="text-xl text-accent-gradient font-semibold mb-6">CI/CD & Infrastructure as Code</p>
+      <p class="text-lg text-slate-300 leading-relaxed">
+        Proficient in modern DevOps practices with a focus on automating deployment pipelines, managing infrastructure using code, and containerizing applications for scalable delivery.
+      </p>
+    </div>
+
+    <div class="space-y-8">
+      <div>
+        <h4 class="text-xl font-bold text-white mb-4 flex items-center">
+          <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+          Tools & Technologies
+        </h4>
+        <div class="space-y-3 ml-5">
+          <div class="flex justify-between items-center">
+            <span class="text-slate-300">Docker</span>
+            <span class="text-slate-500 text-sm">Containerization</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-300">Terraform</span>
+            <span class="text-slate-500 text-sm">Infrastructure as Code</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-300">GitHub Actions</span>
+            <span class="text-slate-500 text-sm">CI/CD Automation</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-300">Kubernetes</span>
+            <span class="text-slate-500 text-sm">Container Orchestration</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+    </section>
+    <footer class="bg-slate-900 border-t border-slate-700/30 text-slate-300 py-12 mt-32">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+    
+    <!-- Brand/Logo -->
+    <div>
+      <h3 class="text-2xl font-bold mb-4">
+        <span class="text-premium-gradient">Retail</span><span class="text-white">Go</span>
+      </h3>
+      <p class="text-slate-400 text-sm leading-relaxed">
+        Empowering Nigeria’s retail ecosystem through innovation, AI, and cloud-native engineering.
+      </p>
+    </div>
+
+    <!-- Links -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4 text-white">Quick Links</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#project" class="hover:underline hover:text-white">Project Impact</a></li>
+        <li><a href="#innovation" class="hover:underline hover:text-white">Innovation</a></li>
+        <li><a href="#about" class="hover:underline hover:text-white">About the Engineer</a></li>
+        <li><a href="#contact" class="hover:underline hover:text-white">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4 text-white">Get in Touch</h4>
+      <p class="text-sm mb-2">Onah Samuel</p>
+      <p class="text-sm mb-2">Cloud Engineer, AltSchool Africa</p>
+      <p class="text-sm">📧 <a href="mailto:your.email@example.com" class="text-accent-gradient hover:underline">your.email@example.com</a></p>
+    </div>
+  </div>
+
+  <div class="mt-12 border-t border-slate-700/30 pt-6 text-center text-sm text-slate-500">
+    &copy; 2025 RetailGo. All rights reserved.
+  </div>
+</footer>
+
+  </body>
+</html>
