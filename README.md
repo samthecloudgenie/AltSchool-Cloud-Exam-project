@@ -6,21 +6,20 @@
 This is a live-deployed dynamic landing page showcasing my role as a Cloud Engineer in a startup shaping the retail landscape with AI-powered self-checkout solutions. It would address the issue of long queues by instant payments via barcode scanning, ensuring a seamless experience for customers and operational efficiency for retail outlets.
 
 ## 🌐 Live Demo
-**Public IP**: http://35.176.251.88  
-**HTTPS**: https://myretailsite.soon.it
+**Public IP**: http://13.42.26.185  
+**HTTPS**: https://myretailsite.bot.nu
 
 ## 🔧 Technologies Used
 - AWS EC2 (Ubuntu 24.04)
-- Nginx (as a reverse proxy)
-- Apache2
+- Nginx
 - TailwindCSS
 - Certbot (Let’s Encrypt SSL)
 - GitHub
 - Freedns
 
 ## 📸 Screenshot
-![Screenshot](./images/Screenshot%20(29).png)
-![Screenshot](./images/Screenshot%20(30).png)
+![Screenshot](./images/Screenshot%20(31).png)
+![Screenshot](./images/Screenshot%20(32).png)
 
 ## 📜 Deployment Steps
 1. I Provisioned an EC2 instance on AWS by launching an instance with Ubuntu 24.04 LTS Operating System, a t2.micro instance type, key pair, and a security group configured to allow SSH (22) from my IP, HTTP (80) AND HTTPS (443)  
@@ -43,12 +42,12 @@ sudo chown -R $USER:$USER /var/www/yourdomain.com/html
 sudo chmod -R 755 /var/www/yourdomain.com
 mv index.html /var/www/yourdomain.com/html  
 
-5. I created a server block to specify the ports to listen on, the domain, and the files associated with it
+5. I created a server block to specify the ports to listen on, the domain, and the files associated with it  
 ```bash```  
 sudo nano /etc/nginx/sites-available/yourdomain.com  
 sudo ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled  
 
-6. I set up HTTPS with let's encrypt 
+6. I set up HTTPS with let's encrypt   
 ```bash```  
 sudo apt install certbot python3-cerbot-nginx  
 sudo certbot --nginx
